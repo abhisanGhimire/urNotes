@@ -1,4 +1,4 @@
-@extends('notes.layout')
+@extends('layouts.main')
 
 @section('content')
 <div class="row">
@@ -16,6 +16,13 @@
     @method('PUT')
     @csrf
     <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Title:</strong>
+                <input type="text" name="title" class="form-control" value="{{old('title',$note->title)}}" placeholder="Title">
+                <span class="text-danger small">@error('title'){{ $message }}@enderror</span>
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Note:</strong>

@@ -1,4 +1,5 @@
-@extends('notes.layout')
+@extends('layouts.main')
+
 
 @section('content')
     <div class="row">
@@ -20,6 +21,7 @@
     <table class="table table-bordered">
         <tr>
             <th>Id</th>
+            <th>Title</th>
             <th>Note</th>
             <th>Updated</th>
             <th width="280px">Action</th>
@@ -27,6 +29,7 @@
         @forelse ($notes as $note)
         <tr>
             <td>{{ $note->id }}</td>
+            <td>{{ $note->title }}</td>
             <td>{{ $note->note }}</td>
             <td>{{ $note->updated_at->diffForHumans() }}</td>
             <td>

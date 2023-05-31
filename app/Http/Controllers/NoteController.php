@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -16,9 +19,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-
-        $notes=Note::latest('updated_at')->paginate(10);
-        return view('notes.index',compact('notes'));
+        $title="List Note";
+        $notes = Note::whereBelongsTo(Auth::user())->latest('updated_at')->paginate(10);
+        return view('notes.index',compact('notes','title'));
     }
 
     /**
@@ -26,7 +29,9 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view('notes.create');
+        $title="Create note";
+
+        return view('notes.create',compact(['title']));
     }
 
     /**
@@ -34,10 +39,15 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData=$request->validate([
+        $request->validate([
             'note' => 'required',
+            'title'=>'required',
         ]);
-        Note::create($validatedData);
+        Auth::user()->notes()->create([
+            'uuid' => Str::uuid(),
+            'title' => $request->title,
+            'note' => $request->note
+        ]);
         return to_route('notes.index')->with('success','Note created successfully');
     }
 
@@ -46,7 +56,12 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        return view('notes.show',compact(['note']));
+        if(!$note->user->is(Auth::user())) {
+            return abort(403);
+        }
+        $title="View note";
+
+        return view('notes.show',compact(['note','title']));
     }
 
     /**
@@ -54,7 +69,12 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        return view('notes.edit',compact('note'));
+        if(!$note->user->is(Auth::user())) {
+            return abort(403);
+        }
+        $title="Edit note";
+
+        return view('notes.edit',compact('note','title'));
     }
 
     /**
@@ -62,11 +82,18 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        $validatedData=$request->validate([
+        if(!$note->user->is(Auth::user())) {
+            return abort(403);
+        }
+        $request->validate([
             'note' => 'required',
+            'title'=>'required',
+        ]);
+        $note->update([
+            'title' => $request->title,
+            'note' => $request->note
         ]);
 
-        $note->update($validatedData);
         return to_route('notes.index')->with('success','Note Updated successfully');
     }
 
@@ -75,6 +102,9 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
+        if(!$note->user->is(Auth::user())) {
+            return abort(403);
+        }
         $note->delete();
         return redirect()->route('notes.index')->with('success','Note deleted successfully');
     }
