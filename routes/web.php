@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\TrashedController;
 use App\Http\Controllers\WelcomeController;
 
 /*
@@ -18,5 +19,8 @@ use App\Http\Controllers\WelcomeController;
 Route::get('/', [WelcomeController::class,'index'])->name('homepage');
 
 Route::resource('notes',NoteController::class);
+Route::resource('trashed',TrashedController::class);
+
 Auth::routes();
 
+Route::post('/delete',[NoteController::class,'delete']);
