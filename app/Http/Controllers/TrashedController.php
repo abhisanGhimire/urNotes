@@ -10,7 +10,7 @@ class TrashedController extends Controller
 {
     public function index() {
         $title="List Note";
-        $notes = Note::whereBelongsTo(Auth::user())->onlyTrashed()->latest('updated_at')->paginate(10);
+        $notes = Note::whereBelongsTo(Auth::user())->onlyTrashed()->latest('updated_at')->paginate(12);
         return view('trashed.index',compact('notes','title'));
     }
 
