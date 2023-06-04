@@ -43,4 +43,4 @@
     </div>
 
     {!! $notes->render('pagination::bootstrap-4') !!}
-@endsection;
+@endsection

@@ -19,8 +19,9 @@ use App\Http\Controllers\WelcomeController;
 Route::get('/', [WelcomeController::class,'index'])->name('homepage');
 
 Route::resource('notes',NoteController::class);
-Route::resource('trashed',TrashedController::class);
+
+Route::get('trashed',[TrashedController::class,'index'])->name('trashed.index');
+Route::put('trashed/{note}',[TrashedController::class,'update'])->name('trashed.update')->withTrashed();
+Route::delete('/trashed/{note}',[TrashedController::class,'destroy'])->name('trashed.destroy')->withTrashed();
 
 Auth::routes();
-
-Route::post('/delete',[NoteController::class,'delete']);

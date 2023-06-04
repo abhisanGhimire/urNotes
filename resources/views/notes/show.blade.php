@@ -6,7 +6,11 @@
         <div class="pull-left">
             <h2>Show Note</h2>
         </div>
-
+        @if (session('success'))
+        <div class="mt-2 alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     </div>
 </div>
 

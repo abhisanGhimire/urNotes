@@ -26,13 +26,13 @@
                         <td>{{ $note->note }}</td>
                         <td>{{ $note->deleted_at->diffForHumans() }}</td>
                         <td>
-                            <form action="{{ route('trashed.update',$note) }}" method="POST">
+                            <form action="{{ route('trashed.update', $note) }}" method="POST">
                                 @method('PUT')
                                 @csrf
-                            <button type="submit" class="btn btn-success">Restore</button>
+                                <button type="submit" class="btn btn-success">Restore</button>
+                                <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete Forever</a>
                             </form>
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete Forever</a>
-                            {{-- @include('notes.modal') --}}
+                            @include('notes.modal')
                         </td>
                     </tr>
                 @empty
@@ -43,4 +43,4 @@
     </div>
 
     {!! $notes->render('pagination::bootstrap-4') !!}
-@endsection;
+@endsection
