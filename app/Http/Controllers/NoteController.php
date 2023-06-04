@@ -20,7 +20,7 @@ class NoteController extends Controller
     public function index()
     {
         $title="List Note";
-        $notes = Note::whereBelongsTo(Auth::user())->latest('updated_at')->paginate(10);
+        $notes = Note::whereBelongsTo(Auth::user())->latest('updated_at')->paginate(12);
         return view('notes.index',compact('notes','title'));
     }
 

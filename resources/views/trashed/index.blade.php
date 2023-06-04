@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
+
+        <div class="card-header margin-tb text-white">
             <h3>Trashed Notes</h3>
         </div>
         <div class="card-body">
@@ -11,36 +11,36 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <table class="table table-bordered">
-                <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Note</th>
-                    <th>Deleted</th>
-                    <th width="280px">Action</th>
-                </tr>
+            </div>
+            <div class="row">
                 @forelse ($notes as $note)
-                    <tr>
-                        <td>{{ $note->id }}</td>
-                        <td>{{ $note->title }}</td>
-                        <td>{{ $note->note }}</td>
-                        <td>{{ $note->deleted_at->diffForHumans() }}</td>
-                        <td>
-                            <form action="{{ route('trashed.update', $note) }}" method="POST">
-                                @method('PUT')
-                                @csrf
-                                <button type="submit" class="btn btn-success">Restore</button>
-                                <a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete Forever</a>
-                            </form>
+                    <div class="card my-3 mx-3" style="width: 26rem; background-color: #408697;">
+                        <div class="card-body">
+                            <h5 class="card-title text-white ">{{ $note->title }}</h5>
+                            <p class="card-text text-white">{{ $note->note }}</p>
+                            
+                            <h6 class="card-subtitle mb-2 text-white">{{$note->deleted_at->diffForHumans()}}</h6>
+                            <div class='float-right'>
+                                <i class="bi bi-reply-fill my-1 mx-1" style="font-size: 1.1rem; color: rgb(76, 250, 76);"></i>
+                                <i class="bi bi-trash3-fill my-1 mx-1" style="font-size: 1.1rem; color: red;" data-toggle="modal" data-target="#deleteModal"></i>
+                            </div>
+
+            
                             @include('notes.modal')
-                        </td>
-                    </tr>
+           
+    
+                            
+    
+    
+                        </div>
+                    </div>
                 @empty
-                    <div>No Notes Found</div>
+                    <div class='text-white'>No Notes Found</div>
                 @endforelse
-            </table>
-        </div>
-    </div>
+            </div>
+
+ 
+
 
     {!! $notes->render('pagination::bootstrap-4') !!}
 @endsection

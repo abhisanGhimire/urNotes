@@ -10,11 +10,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @if(!request()->routeIs('homepage'))
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav me-auto">
-                <a class="btn btn-primary {{ request()->path()=='notes'? "btn-info":"" }}" href="{{ route('notes.index') }}">Notes</a>
-                <a class="btn btn-primary {{ request()->routeIs('trashed.index')? "btn-info":"" }} mx-2" href="{{ route('trashed.index') }}">Trash</a>
-            </ul>
-            @endif
+
+
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 <!-- Authentication Links -->
@@ -31,6 +28,7 @@
                         </li>
                     @endif
                 @else
+
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
@@ -43,6 +41,8 @@
                                 {{ __('Logout') }}
                             </a>
 
+                            <a class="dropdown-item" href="{{ route('notes.index') }}">Notes</a>
+                            <a class="dropdown-item" href="{{ route('trashed.index') }}">Trash</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
