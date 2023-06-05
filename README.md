@@ -1,4 +1,4 @@
-<h2 align="center">urNotes</h2>
+<h1 align="center">urNotes</h1>
 
 Simple note application developed to practice laravel authentication, MVC architecture and CRUD operation.
 
