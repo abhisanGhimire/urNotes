@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class TrashedController extends Controller
 {
     public function index() {
-        $title="List Note";
+        $title="Trashed Note";
         $notes = Note::whereBelongsTo(Auth::user())->onlyTrashed()->latest('updated_at')->paginate(12);
         return view('trashed.index',compact('notes','title'));
     }

@@ -8,7 +8,6 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            @if(!request()->routeIs('homepage'))
             <!-- Left Side Of Navbar -->
 
 
