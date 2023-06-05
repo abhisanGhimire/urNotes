@@ -2,7 +2,7 @@
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('layouts.header')
-<body style="background-color: #212529	;">
+<body style="background-color: #759cc4	;">
     <div id="app" class="bg-dark">
     @include('layouts.nav')
         <main class="p-4">
