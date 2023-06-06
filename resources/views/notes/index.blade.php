@@ -15,22 +15,22 @@
                 <a class="btn fw-bold border-success text-success " href="{{ route('notes.create') }}"> Create New Note</a>
             </div>
 
-                
+
         </div>
         <div class="row">
             @forelse ($notes as $note)
                 <div class="card my-3 mx-3" style="width: 26rem; background-color: #408697;">
                     <div class="card-body">
                         <h5 class="card-title text-white ">{{ $note->title }}</h5>
-                        <p class="card-text text-white">{{ $note->note }}</p>
-                     
+                        <p class="card-text text-white">{!! $note->note !!}</p>
+
                     <div class="row d-flex justify-content-between">
                             <div class="col-auto">
                             <h6 class="card-subtitle text-white">{{ $note->updated_at->diffForHumans() }}</h6   >
                             </div>
-           
+
                             <div class="col-auto">
-                    
+
                                   <a class="mx-2" href="{{ route('notes.show', $note) }}">
                                   <i class="bi bi-eye-fill " style="font-size: 1.1rem; color: rgb(60, 207, 248)">  </i>
                                   </a>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                         @include('notes.modal')
-       
+
                     </div>
             @empty
                 <div>No Notes Found</div>

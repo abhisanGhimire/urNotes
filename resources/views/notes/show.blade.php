@@ -25,7 +25,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 text-white">
             <div class="form-group">
                 <strong>Note:</strong>
-                {{ $note->note }}
+                {!! $note->note !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-white">

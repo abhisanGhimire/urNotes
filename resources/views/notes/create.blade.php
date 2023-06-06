@@ -25,7 +25,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Note:</strong>
-                <input type="text" name="note" class="form-control" value="{{old('note')}}" placeholder="Note">
+                <textarea type="text" name="note" class="form-control tinyMCE" placeholder="Note">{{ old('note')}} </textarea>
                 <span class="text-danger small">@error('note'){{ $message }}@enderror</span>
             </div>
         </div>

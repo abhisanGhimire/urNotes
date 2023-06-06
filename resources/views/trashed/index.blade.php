@@ -16,7 +16,7 @@
             <div class="card my-3 mx-3" style="width: 26rem; background-color: #408697;">
                 <div class="card-body">
                     <h5 class="card-title text-white ">{{ $note->title }}</h5>
-                    <p class="card-text text-white">{{ $note->note }}</p>
+                    <p class="card-text text-white">{!! $note->note !!}</p>
 
                     <h6 class="card-subtitle mb-2 text-white">{{ $note->deleted_at->diffForHumans() }}</h6>
                     <div class='float-right'>
