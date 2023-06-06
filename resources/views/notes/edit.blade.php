@@ -31,7 +31,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Note:</strong>
-                    <textarea type="text" name="note" class="form-control tinyMCE" placeholder="Note">{{ old('note', $note->note) }} </textarea>
+                    <textarea type="text" name="note" class="invisible form-control tinyMCE" placeholder="Note">{{ old('note', $note->note) }} </textarea>
                     <span class="text-danger small">
                         @error('note')
                             {{ $message }}

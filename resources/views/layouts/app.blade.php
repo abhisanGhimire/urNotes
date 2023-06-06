@@ -12,7 +12,6 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-1CmRU3O3gxpzX1ZG15cWj2OfVmvaUefHILvu0ccJgF3P+2n4HqYuyLh0JnJZz7/S" crossorigin="anonymous">
 
 
     <!-- Scripts -->

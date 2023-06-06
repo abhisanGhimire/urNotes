@@ -11,7 +11,6 @@
         </main>
     </div>
 </body>
-<link rel="stylesheet" href="{{ asset('prism.css') }}">
-</link>
+
 @include('layouts.scripts')
 </html>
