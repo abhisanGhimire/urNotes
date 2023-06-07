@@ -67,6 +67,5 @@
         ],
         branding: false,
         promotion: false,
-
     });
 </script>

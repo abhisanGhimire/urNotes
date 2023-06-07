@@ -1,4 +1,28 @@
+body{
+    background-color: #f1f9f2;
+}
+.btn-primary{
+    background-color:#607d90;
+}
+.custom-mt{
+margin-top: 10em;
+}
+.card{
+    background-color:#ffffff;
+}
+.btn-primary:hover{
+    background-color:#000000;
+}
 .restore_button{
     border: none;
     background-color: transparent;
 }
+
+
+
+
+/* Added code */
+
+
+
+
