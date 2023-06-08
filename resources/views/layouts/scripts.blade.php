@@ -10,6 +10,7 @@
 </script>
 <script src="{{ asset('tinymce/tinymce/tinymce.js') }}"></script>
 
+@if(!request()->routeIs('trashed.index'))
 <script>
     tinymce.init({
         force_br_newlines: true,
@@ -69,3 +70,4 @@
         promotion: false,
     });
 </script>
+@endif
