@@ -24,4 +24,6 @@ Route::get('trashed',[TrashedController::class,'index'])->name('trashed.index');
 Route::put('trashed/{note}',[TrashedController::class,'update'])->name('trashed.update')->withTrashed();
 Route::delete('/trashed/{note}',[TrashedController::class,'destroy'])->name('trashed.destroy')->withTrashed();
 Route::post('/trashed/all',[TrashedController::class,'destroyAll'])->name('trashed.destroyAll');
+Route::post('/trashed/resall',[TrashedController::class,'restoreall'])->name('trashed.restoreAll');
+
 Auth::routes();

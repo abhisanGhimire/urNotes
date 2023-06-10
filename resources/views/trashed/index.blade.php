@@ -2,7 +2,9 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('content')
     <div class="card-header">
-        <h3>Trashed Notes <button id="deleteAll" class="btn btn-danger" disabled>Delete All</button>
+        <h3>Trashed Notes 
+            <button id="restoreAll" class="btn btn-success" disabled>Restore All</button>
+            <button id="deleteAll" class="btn btn-danger" disabled>Delete All</button>
         </h3>
     </div>
     <div class="card-body">
@@ -50,6 +52,7 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         var deleteButton = document.getElementById('deleteAll');
+        var restoreButton = document.getElementById('restoreAll');
 
         var checkboxes = document.querySelectorAll('input[type=checkbox]');
         var flag = 0;
@@ -71,16 +74,23 @@
                 }
                 if (flag == 0) {
                     deleteButton.disabled = true;
+                    restoreButton.disabled=true;
                 } else {
                     deleteButton.disabled = false;
+                    restoreButton.disabled=false;
+
                     document.getElementById('deleteAll').addEventListener('click', onClick);
+                    document.getElementById('restoreAll').addEventListener('click', onresClick);
                 }
                 console.log(ids);
             });
         });
     });
 
-    let url = '{{ route('trashed.destroyAll') }}';
+    let url ='{{ route('trashed.destroyAll') }}';
+    let resurl ='{{ route('trashed.restoreAll') }}';
+
+
     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     function onClick() {
@@ -106,4 +116,30 @@
                 console.log(error);
             });
     }
+
+
+    function onresClick() {
+        fetch(resurl, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": token
+                },
+                method: 'post',
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    ids
+                })
+            })
+            .then(response => response.json()) // second step
+            .then(data => {
+                console.log(data)
+                location.reload()
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
 </script>
