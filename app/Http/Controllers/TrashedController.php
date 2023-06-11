@@ -35,6 +35,20 @@ class TrashedController extends Controller
         foreach($ids as $id) {
             $note=Note::onlyTrashed()->find($id);
             $note->forceDelete();
+            return to_route('trashed.index')->with('success', 'Note deleted forever');
+        }
+        return response()->json([
+            'result' => 'success'
+        ]);
+    }
+
+
+    public function restoreall(Request $request) {
+        $ids=$request->ids;
+        foreach($ids as $id) {
+            $note=Note::onlyTrashed()->find($id);
+            $note->restore();
+            return to_route('notes.show', $note)->with('success', 'Note restored successfully');
         }
         return response()->json([
             'result' => 'success'
