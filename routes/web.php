@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Note;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TrashedController;
@@ -25,5 +27,16 @@ Route::put('trashed/{note}',[TrashedController::class,'update'])->name('trashed.
 Route::delete('/trashed/{note}',[TrashedController::class,'destroy'])->name('trashed.destroy')->withTrashed();
 Route::post('/trashed/all',[TrashedController::class,'destroyAll'])->name('trashed.destroyAll');
 Route::post('/trashed/resall',[TrashedController::class,'restoreall'])->name('trashed.restoreAll');
+
+
+// Not recommended
+Route::get('/trashed/deleted',function(){
+    return to_route('trashed.index')->with('success','All Selected Notes Deleted Forever');
+})->name('all.deleted');
+
+Route::get('/trashed/restored',function(){
+    return to_route('trashed.index')->with('success','All Selected Notes Restored Successfully');
+})->name('all.restored');
+
 
 Auth::routes();

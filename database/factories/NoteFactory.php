@@ -17,7 +17,10 @@ class NoteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->word,
+            'note' => fake()->text(20),
+            'uuid' => fake()->uuid,
+            'user_id' => 1,
         ];
     }
 }

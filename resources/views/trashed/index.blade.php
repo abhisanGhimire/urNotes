@@ -2,8 +2,9 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('content')
     <div class="card-header">
-        <h3>Trashed Notes 
+        <h3>Trashed Notes
             <button id="restoreAll" class="btn btn-success" disabled>Restore All</button>
+            <button id="selectAll" class="btn btn-info">Select All</button>
             <button id="deleteAll" class="btn btn-danger" disabled>Delete All</button>
         </h3>
     </div>
@@ -53,42 +54,79 @@
     document.addEventListener('DOMContentLoaded', function() {
         var deleteButton = document.getElementById('deleteAll');
         var restoreButton = document.getElementById('restoreAll');
-
+        document.getElementById('deleteAll').addEventListener('click',
+            onClick);
+        document.getElementById('restoreAll').addEventListener('click',
+            onresClick);
         var checkboxes = document.querySelectorAll('input[type=checkbox]');
         var flag = 0;
+        var flagforselect = false;
+        document.getElementById('selectAll').addEventListener('click', function(e) {
+            if (!flagforselect) {
+                flagforselect = true;
+                checkboxes.forEach(function(checkbox) {
+                    ids=[]
+                    checkbox.checked = true
+                });
+                deleteButton.disabled = false;
+                restoreButton.disabled = false;
+                document.getElementById('selectAll').innerHTML = 'Unselect All';
+                @foreach ($notes as $note)
+                    ids.push('{{ $note->id }}')
+                @endforeach
+                console.log(ids);
+
+            } else {
+                flagforselect = false;
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = false
+                });
+                deleteButton.disabled = true;
+                restoreButton.disabled = true;
+                document.getElementById('selectAll').innerHTML = 'Select All';
+                ids=[]
+                console.log(ids);
+            }
+        });
+
         checkboxes.forEach(function(checkbox) {
+
             checkbox.addEventListener('change', function(event) {
                 var isChecked = event.target.checked;
                 var checkboxId = event.target.id;
                 if (isChecked) {
                     flag += 1;
-                    console.log('Checkbox with ID', checkboxId, 'is checked.' + flag);
+                    console.log('Checkbox with ID', checkboxId, 'is checked.' +
+                        flag);
                     ids.push(checkboxId);
                     // Perform additional actions for checked checkboxes
                 } else {
                     flag -= 1;
-                    console.log('Checkbox with ID', checkboxId, 'is unchecked.' + flag);
+                    console.log('Checkbox with ID', checkboxId, 'is unchecked.' +
+                        flag);
                     ids = ids.filter(function(id) {
                         return id !== checkboxId;
                     }); // Perform additional actions for unchecked checkboxes
                 }
                 if (flag == 0) {
                     deleteButton.disabled = true;
-                    restoreButton.disabled=true;
+                    restoreButton.disabled = true;
                 } else {
                     deleteButton.disabled = false;
-                    restoreButton.disabled=false;
+                    restoreButton.disabled = false;
 
-                    document.getElementById('deleteAll').addEventListener('click', onClick);
-                    document.getElementById('restoreAll').addEventListener('click', onresClick);
+                    document.getElementById('deleteAll').addEventListener('click',
+                        onClick);
+                    document.getElementById('restoreAll').addEventListener('click',
+                        onresClick);
                 }
                 console.log(ids);
             });
         });
     });
 
-    let url ='{{ route('trashed.destroyAll') }}';
-    let resurl ='{{ route('trashed.restoreAll') }}';
+    let url = '{{ route('trashed.destroyAll') }}';
+    let resurl = '{{ route('trashed.restoreAll') }}';
 
 
     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -109,8 +147,9 @@
             })
             .then(response => response.json()) // second step
             .then(data => {
-                console.log(data)
-                location.reload()
+                if (data.result == 'success') {
+                    window.location.href = "{{ route('all.deleted') }}";
+                }
             })
             .catch(function(error) {
                 console.log(error);
@@ -134,12 +173,12 @@
             })
             .then(response => response.json()) // second step
             .then(data => {
-                console.log(data)
-                location.reload()
+                if (data.result == 'success') {
+                    window.location.href = "{{ route('all.restored') }}";
+                }
             })
             .catch(function(error) {
                 console.log(error);
             });
     }
-
 </script>
